@@ -1,6 +1,6 @@
-import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:html/parser.dart' as html;
 import 'package:http/http.dart' as http;
+import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:metadata_fetch/src/parsers/jsonld_parser.dart';
 import 'package:metadata_fetch/src/parsers/parsers.dart';
 import 'package:metadata_fetch/src/utils/util.dart';
@@ -11,7 +11,7 @@ import 'package:test/test.dart';
 void main() {
   test('JSON Serialization', () async {
     var url = 'https://flutter.dev';
-    var response = await http.get(url);
+    var response = await http.get(Uri.parse(url));
     var document = responseToDocument(response);
     var data = MetadataParser.parse(document);
     print(data.toJson());
@@ -20,7 +20,7 @@ void main() {
 
   test('Metadata Parser', () async {
     var url = 'https://flutter.dev';
-    var response = await http.get(url);
+    var response = await http.get(Uri.parse(url));
     var document = responseToDocument(response);
 
     var data = MetadataParser.parse(document);
@@ -44,7 +44,7 @@ void main() {
   group('Metadata parsers', () {
     test('JSONLD', () async {
       var url = 'https://www.epicurious.com/';
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       var document = responseToDocument(response);
       // print(response.statusCode);
 
@@ -54,7 +54,7 @@ void main() {
     test('JSONLD II', () async {
       var url =
           'https://www.epicurious.com/expert-advice/best-soy-sauce-chefs-pick-article';
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       var document = responseToDocument(response);
       // print(response.statusCode);
 
@@ -64,7 +64,7 @@ void main() {
     test('JSONLD III', () async {
       var url =
           'https://medium.com/@quicky316/install-flutter-sdk-on-windows-without-android-studio-102fdf567ce4';
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       var document = responseToDocument(response);
       // print(response.statusCode);
 
@@ -73,7 +73,7 @@ void main() {
 
     test('JSONLD IV', () async {
       var url = 'https://www.distilled.net/';
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       var document = responseToDocument(response);
       // print(response.statusCode);
 
@@ -81,7 +81,7 @@ void main() {
     });
     test('HTML', () async {
       var url = 'https://flutter.dev';
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       var document = responseToDocument(response);
       print(response.statusCode);
 
@@ -92,7 +92,7 @@ void main() {
 
     test('OpenGraph Parser', () async {
       var url = 'https://flutter.dev';
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       var document = responseToDocument(response);
       print(response.statusCode);
 
@@ -104,7 +104,7 @@ void main() {
 
     test('OpenGraph Youtube Test', () async {
       String url = 'https://www.youtube.com/watch?v=0jz0GAFNNIo';
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       var document = responseToDocument(response);
       print(OpenGraphParser(document));
       print(OpenGraphParser(document).title);
@@ -116,7 +116,7 @@ void main() {
     test('TwitterCard Parser', () async {
       var url =
           'https://www.epicurious.com/expert-advice/best-soy-sauce-chefs-pick-article';
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       var document = responseToDocument(response);
       print(response.statusCode);
 
@@ -130,7 +130,7 @@ void main() {
 
     test('Faulty', () async {
       var url = 'https://google.ca';
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       var document = responseToDocument(response);
       print(response.statusCode);
 
